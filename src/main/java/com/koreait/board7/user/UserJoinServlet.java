@@ -1,6 +1,8 @@
 package com.koreait.board7.user;
 
 import com.koreait.board7.MyUtils;
+import com.koreait.board7.dao.UserDAO;
+import com.koreait.board7.model.UserVO;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,6 +20,30 @@ public class UserJoinServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+        String uid = req.getParameter("uid");
+        String upw = req.getParameter("upw");
+        String nm = req.getParameter("nm");
+        int gender = MyUtils.getParameterInt(req, "gender");
+
+        UserVO param = new UserVO();
+
+        param.setUid(uid);
+        param.setUpw(upw);
+        param.setNm(nm);
+        param.setGender(gender);
+
+        int result = UserDAO.join(param);
+
+        switch (result) {
+            case 1:
+                res.sendRedirect("/user/login");
+                break;
+            default:
+                req.setAttribute("err", "회원가입에 실패하였습니다.");
+                doGet(req, res);
+                break;
+        }
+
 
     }
 }

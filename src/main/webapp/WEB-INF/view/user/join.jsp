@@ -20,8 +20,8 @@
         </div>
         <div>
             gender :
-            <input type="radio" name="gender" value="0">여자
-            <input type="radio" name="gender" value="1">남자
+            <label><input type="radio" name="gender" value="0">여자</label>
+            <label><input type="radio" name="gender" value="1">남자</label>
         </div>
         <div>
             <input type="submit" value="회원가입">
